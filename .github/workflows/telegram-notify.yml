@@ -1,0 +1,26 @@
+name: Notify Telegram on Push
+
+on:
+  push:
+    branches:
+      - main # Modifica con il tuo branch (es. master, dev)
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram Message
+        run: |
+          COMMIT_MESSAGE="${{ github.event.commits[0].message }}"
+          COMMIT_AUTHOR="${{ github.event.commits[0].author.name }}"
+          COMMIT_SHA="${{ github.sha }}"
+          REPO_NAME="${{ github.repository }}"
+          MESSAGE="Nuovo commit in *$REPO_NAME* by *$COMMIT_AUTHOR*:
+          *$COMMIT_MESSAGE*  
+          [Vedi commit](https://github.com/$REPO_NAME/commit/$COMMIT_SHA)"
+          
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d text="$MESSAGE" \
+            -d message_thread_id="3" \
+            -d parse_mode="Markdown"
