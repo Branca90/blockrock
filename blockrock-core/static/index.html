@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BlockRock Tracker</title>
+    <script src="/static/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>BlockRock Transactions</h1>
+    <canvas id="balanceChart" height="100"></canvas>
+    <h2>Transactions</h2>
+    <table id="txTable">
+        <thead>
+            <tr>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Amount</th>
+                <th>Block Hash</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        fetch('/blocks')
+            .then(response => response.json())
+            .then(blocks => {
+                const tbody = document.querySelector('#txTable tbody');
+                blocks.forEach(block => {
+                    block.transactions.forEach(tx => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${tx.sender}</td>
+                            <td>${tx.receiver}</td>
+                            <td>${tx.amount}</td>
+                            <td>${block.hash}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                });
+            });
+
+        fetch('/balances')
+            .then(response => response.json())
+            .then(balances => {
+                const ctx = document.getElementById('balanceChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(balances),
+                        datasets: [{
+                            label: 'Saldi',
+                            data: Object.values(balances),
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            });
+    </script>
+</body>
+</html>
