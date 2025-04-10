@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>BlockRock Tracker</title>
-    <script src="/static/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockRock Transactions</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        table { border-collapse: collapse; width: 100%; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
+        canvas { max-width: 600px; margin-top: 20px; }
     </style>
+    <script src="chart.js"></script>
 </head>
 <body>
     <h1>BlockRock Transactions</h1>
-    <canvas id="balanceChart" height="100"></canvas>
-    <h2>Transactions</h2>
-    <table id="txTable">
+    <table id="transactionTable">
         <thead>
             <tr>
                 <th>Sender</th>
@@ -23,31 +24,41 @@
                 <th>Block Hash</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="transactionsBody"></tbody>
     </table>
 
+    <h2>Balances</h2>
+    <canvas id="balanceChart"></canvas>
+
     <script>
-        fetch('/blocks')
-            .then(response => response.json())
-            .then(blocks => {
-                const tbody = document.querySelector('#txTable tbody');
+        async function fetchTransactions() {
+            try {
+                const response = await fetch('/blocks');
+                const blocks = await response.json();
+                const tbody = document.getElementById('transactionsBody');
+                tbody.innerHTML = ''; // Pulisci la tabella
+
                 blocks.forEach(block => {
                     block.transactions.forEach(tx => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${tx.sender}</td>
-                            <td>${tx.receiver}</td>
+                            <td>${tx.from}</td>
+                            <td>${tx.to}</td>
                             <td>${tx.amount}</td>
-                            <td>${block.hash}</td>
+                            <td>${block.hash || 'N/A'}</td>
                         `;
                         tbody.appendChild(row);
                     });
                 });
-            });
+            } catch (error) {
+                console.error('Errore nel caricamento delle transazioni:', error);
+            }
+        }
 
-        fetch('/balances')
-            .then(response => response.json())
-            .then(balances => {
+        async function fetchBalances() {
+            try {
+                const response = await fetch('/balances');
+                const balances = await response.json();
                 const ctx = document.getElementById('balanceChart').getContext('2d');
                 new Chart(ctx, {
                     type: 'bar',
@@ -67,7 +78,14 @@
                         }
                     }
                 });
-            });
+            } catch (error) {
+                console.error('Errore nel caricamento dei saldi:', error);
+            }
+        }
+
+        // Carica i dati all'avvio
+        fetchTransactions();
+        fetchBalances();
     </script>
 </body>
 </html>
