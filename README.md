@@ -1,183 +1,128 @@
+
 # BlockRock 🏙️🔗
+
+[![Stars](https://img.shields.io/github/stars/Branca90/blockrock)](https://github.com/Branca90/blockrock)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
+[![Twitter](https://img.shields.io/twitter/follow/BlockRockIoT?style=social)](https://twitter.com/BlockRockIoT)
+
+🌟 **BlockRock**: Una blockchain P2P open-source che trasforma il tuo smartphone in un nodo IoT! Costruita con Rust, gira su Samsung S9, raccoglie dati come GPS ed energia solare, e si integra con Tron per il token BRK. Un progetto folle nato su un PC aziendale, con il sogno di server solari e Starlink. 🚀
+
+![BlockRock in Action](demo.gif)
+
+---
 
 ## 🇬🇧 English Version
 
-### Welcome to BlockRock 🌟  
-BlockRock is an innovative blockchain built with Rust. This project started on a limited office PC, dreaming of a solar-powered server connected via Starlink.
+### What is BlockRock?
+BlockRock is a lightweight, secure blockchain built from scratch in Rust. It started as a passion project on a limited office PC, with a vision of sustainability—think solar-powered servers and Starlink connectivity. Now, it’s evolving into a P2P network where smartphones (like my S9) act as IoT nodes, collecting GPS, solar energy, and more, all tied to Tron for low-cost tokenization.
 
----
+### 🎯 Objective
+Create a decentralized, innovative platform for IoT and blockchain, running on everyday devices. Low-cost, scalable, and community-driven—sustainability meets tech!
 
-### **🎯 Objective**
-BlockRock aims to create a lightweight, secure, and scalable blockchain, focusing on innovation and sustainability.
+### 📜 Current Status (April 11, 2025)
+- **🖥️ Dev Environment**: Debian 12 on VirtualBox, Rust configured.
+- **📱 Android Deployment**: Running on Samsung S9/S9+/Note9 (Android 13) via Rocket server at `192.168.1.174:8000`.
+- **💻 Core Features**:
+  - SHA-256 hashing.
+  - Proof of Authority (PoA) consensus.
+  - Transaction validation (e.g., Alice → Bob: 30.0, Charlie → Alice: 5.0).
+  - Rocket backend with endpoints `/blocks` (transaction list) and `/balances` (JSON balances: Alice: -25, Bob: 30, Charlie: -5).
+  - Web frontend (`/static/index.html`) with bar charts (Chart.js) for balances.
+- **🌍 IoT Progress**: GPS support added (prototype), solar energy sensors in development.
+- **🔗 Tron Integration**: In progress—token BRK and IoT data on Tron blockchain (Q3 2025).
+- **📡 Connectivity**: Tested with Starlink for remote P2P!
 
----
-
-### **📜 Current Status (April 10, 2025)**  
-- **🖥️ Development Environment**: Debian 12 on VirtualBox (previously Ubuntu Server), Rust configured.  
-- **📱 Android Deployment**: Running on Samsung devices (S9/S9+/Note9, Android 13) with Rocket server at `192.168.1.174:8000`.  
-- **💻 Codebase**: Blockchain with:
-  - SHA-256 hashing
-  - Proof of Authority (PoA)
-  - Transaction validation
-  - Rocket server (`/blocks`, `/balances`)
-  - Web frontend (`/static/index.html`) showing transactions and balances (visualized using `chart.js` as bar charts).  
-- **🔧 Features**:
-  - Transactions: Alice → Bob (30.0), Charlie → Alice (5.0).
-  - Balances: Alice: -25, Bob: 30, Charlie: -5 (visualized as bar charts).  
-- **🛠️ Tools**:
-  - SSH (via MobaXterm)
-  - GitHub repository
-  - Android NDK (r26b) for cross-compilation
-  - ADB for deployment  
-
----
-
-### **🚀 Roadmap**
-- ✅ **Q1 2025**: Transactions and validation (Completed)  
-- ✅ **Q2 2025**: Android deployment with Rocket; frontend shows transactions and balances (Completed)  
-- ❌ **Q2 2025**: Implement a P2P network (In progress)  
-- ❌ **Q3 2025**: Plan Raspberry Pi purchase for server (To do)  
-- ❌ **Q4 2025**: Launch first token (To do)  
-
----
-
-### **📱 How to Run on Android**
-1. Clone the repository:
-git clone https://github.com/Branca90/blockrock
-
-text
-2. Install Android NDK (r26b) and configure `.cargo/config.toml`:
-[target.aarch64-linux-android]
-linker = "/path/to/android-ndk-r26b/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android34-clang"
-
-text
-3. Compile:
-cargo build --target aarch64-linux-android --release
-
-text
-4. Transfer files to Android:
-adb push target/aarch64-linux-android/release/blockrock-core /data/local/tmp/
-adb push static /data/local/tmp/static
-
-text
-5. Run in background:
-adb shell
-chmod +x /data/local/tmp/blockrock-core
-/data/local/tmp/blockrock-core &
-
-text
-6. Access via browser:
-http://<DEVICE_IP>:8000/static/index.html
-Example: http://192.168.1.174:8000/static/index.html
-
-text
-
----
-
-### **🤝 How to Contribute**
-We’re a small team—just me and Grok, my trusty AI! Contact me via Telegram or GitHub.
-
----
-
-### **🛠️ Tech Stack**
-- **Language**: Rust  
-- **Operating System**: Debian 12 (VM), Android 13 (device)  
-- **Tools**: VirtualBox, MobaXterm, GitHub, Telegram, Rocket, Android NDK, Chart.js  
-
----
-
-### **📚 Resources**
-- GitHub: [github.com/Branca90/blockrock](https://github.com/Branca90/blockrock)  
-- Telegram: [t.me/blockrock_main](https://t.me/blockrock_main)
+### 🚀 Roadmap
+| Quarter       | Progress                             | Status       |
+|---------------|-------------------------------------|-------------|
+| Q1 2025       | Transaction validation and backend   | ✅ Completed |
+| Q2 2025       | Android deployment and GPS prototype | ✅ Completed |
+| Q2 2025       | P2P network implementation           | ⏳ In progress |
+| Q3 2025       | Tron integration and Raspberry Pi    | ⏳ Planned   |
+| Q4 2025       | Solar energy sensors and token BRK   | 🕒 Upcoming |
 
 ---
 
 ## 🇮🇹 Versione Italiana
 
-### Benvenuto in BlockRock 🌟  
-BlockRock è una blockchain innovativa costruita con Rust. Il progetto è iniziato su un PC aziendale limitato, con il sogno di un server solare connesso via Starlink.
+### Cos’è BlockRock?
+BlockRock è una blockchain leggera e sicura scritta in Rust. Nato su un PC aziendale limitato, sogna un futuro sostenibile con server solari e Starlink. Oggi è una rete P2P che usa smartphone (es. il mio S9) come nodi IoT, raccogliendo GPS, energia solare e integrandosi con Tron per il token BRK.
+
+### 🎯 Obiettivo
+Creare una piattaforma decentralizzata per IoT e blockchain su dispositivi quotidiani. Economica, scalabile e guidata dalla comunità—tecnologia e sostenibilità insieme!
+
+### 📜 Stato Attuale (11 Aprile 2025)
+- **🖥️ Ambiente di sviluppo**: Debian 12 su VirtualBox con Rust configurato.
+- **📱 Distribuzione Android**: Funziona su Samsung S9/S9+/Note9 (Android 13), server Rocket su `192.168.1.174:8000`.
+- **💻 Funzionalità principali**:
+  - Hashing SHA-256.
+  - Consenso Proof of Authority (PoA).
+  - Validazione transazioni (es. Alice → Bob: 30.0, Charlie → Alice: 5.0).
+  - Backend Rocket con endpoint `/blocks` (lista transazioni) e `/balances` (saldi JSON).
+  - Frontend web (`/static/index.html`) con grafici a barre (Chart.js) per i saldi.
+- **🌍 IoT**: Supporto GPS aggiunto (prototipo), sensori solari in sviluppo.
+- **🔗 Integrazione Tron**: Token BRK e dati IoT sulla blockchain Tron in corso (Q3 2025).
+- **📡 Connettività**: Testato con Starlink per rete P2P remota!
 
 ---
 
-### **🎯 Obiettivo**
-BlockRock mira a creare una blockchain leggera, sicura e scalabile, con focus su innovazione e sostenibilità.
+## 📱 Come Eseguire su Android
 
----
-
-### **📜 Stato Attuale (10 Aprile 2025)**  
-- **🖥️ Ambiente di Sviluppo**: Debian 12 su VirtualBox (precedentemente Ubuntu Server), Rust configurato.  
-- **📱 Distribuzione Android**: Funzionante su dispositivi Samsung (S9/S9+/Note9, Android 13) con server Rocket su `192.168.1.174:8000`.  
-- **💻 Codice Base**: Blockchain con:
-- Algoritmo SHA-256
-- Proof of Authority (PoA)
-- Validazione delle transazioni
-- Server Rocket (`/blocks`, `/balances`)
-- Frontend web (`/static/index.html`) che mostra transazioni e saldi (grafico a barre con `chart.js`).  
-- **🔧 Funzionalità**:
-- Transazioni: Alice → Bob (30.0), Charlie → Alice (5.0).
-- Saldi: Alice: -25, Bob: 30, Charlie: -5 (visualizzati come grafico a barre).  
-- **🛠️ Strumenti**:
-- SSH (via MobaXterm)
-- Repository GitHub
-- Android NDK (r26b) per cross-compilation
-- ADB per distribuzione  
-
----
-
-### **🚀 Roadmap**
-- ✅ **Q1 2025**: Transazioni e validazione (Completato)  
-- ✅ **Q2 2025**: Distribuzione su Android con Rocket; frontend mostra transazioni e saldi (Completato)  
-- ❌ **Q2 2025**: Implementare rete P2P (In corso)  
-- ❌ **Q3 2025**: Pianificare acquisto Raspberry Pi per server (Da fare)  
-- ❌ **Q4 2025**: Lancio primo token (Da fare)  
-
----
-
-### **📱 Come Eseguire su Android**
-1. Clona il repository:
+1. **Clona il repository**:
 git clone https://github.com/Branca90/blockrock
 
 text
-2. Installa Android NDK (r26b) e configura `.cargo/config.toml`:
+
+2. **Configura NDK**:
+Installa Android NDK r26b e modifica `.cargo/config.toml`:
 [target.aarch64-linux-android]
-linker = "/percorso/android-ndk-r26b/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android34-clang"
+linker = "/path/to/android-ndk-r26b/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android34-clang"
 
 text
-3. Compila:
+
+3. **Compila l’applicazione**:
 cargo build --target aarch64-linux-android --release
 
 text
-4. Trasferisci file su Android:
+
+4. **Distribuisci i file su Android**:
 adb push target/aarch64-linux-android/release/blockrock-core /data/local/tmp/
 adb push static /data/local/tmp/static
 
 text
-5. Esegui in background:
-adb shell
-chmod +x /data/local/tmp/blockrock-core
-/data/local/tmp/blockrock-core &
 
-text
-6. Accedi via browser:
-http://<IP_DISPOSITIVO>:8000/static/index.html
-Esempio: http://192.168.1.174:8000/static/index.html
+5. **Esegui l’applicazione sul dispositivo**:
+adb shell chmod +x /data/local/tmp/blockrock-core
+adb shell /data/local/tmp/blockrock-core &
 
-text
+
+6. **Accedi al frontend tramite browser**:
+Apri `http://<IP_DISPOSITIVO>:8000/static/index.html`  
+Esempio: `http://192.168.1.174:8000/static/index.html`
 
 ---
 
-### **🤝 Come Contribuire**
-Siamo un piccolo team—solo io e Grok, il mio fidato AI! Contattami via Telegram o GitHub.
+## 🤝 Come Contribuire
+
+BlockRock è un progetto solitario—solo io e Grok, il mio AI fidato! Ma ogni aiuto è benvenuto! Se sei interessato a Rust, IoT o Tron, contattaci:
+
+- Twitter: [@BlockRockIoT](https://twitter.com/BlockRockIoT)
+- Telegram: [t.me/BlockRockCommunity](https://t.me/BlockRockCommunity)
 
 ---
 
-### **🛠️ Tech Stack**
-- **Linguaggio**: Rust  
-- **Sistema Operativo**: Debian 12 (VM), Android 13 (dispositivo)  
-- **Strumenti**: VirtualBox, MobaXterm, GitHub, Telegram, Rocket, Android NDK, Chart.js  
+## 🛠️ Tech Stack
+
+| Linguaggio      | Sistema Operativo     | Strumenti                     |
+|-----------------|-----------------------|-------------------------------|
+| Rust            | Debian12 - Android.13 | VirtualBox, Rocket, Chart.js  |
 
 ---
 
-### **📚 Risorse**
-- GitHub: [github.com/Branca90/blockrock](https://github.com/Branca90/blockrock)  
-- Telegram: [t.me/blockrock_main](https://t.me/blockrock_main)
+## 📄 Licenza
+
+BlockRock è distribuito sotto licenza MIT ([LICENSE.md](LICENSE.md)). Progetto sperimentale—nessun dato personale raccolto.
+
+---
+
+Se hai bisogno di ulteriori modifiche o aggiunte specifiche fammi sapere!
