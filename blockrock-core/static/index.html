@@ -2,90 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlockRock Transactions</title>
+    <title>BlockRock Blockchain</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table { border-collapse: collapse; width: 100%; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
-        canvas { max-width: 600px; margin-top: 20px; }
     </style>
-    <script src="chart.js"></script>
 </head>
 <body>
-    <h1>BlockRock Transactions</h1>
-    <table id="transactionTable">
+    <h1>BlockRock Blockchain</h1>
+    <table id="blocks-table">
         <thead>
             <tr>
-                <th>Sender</th>
-                <th>Receiver</th>
-                <th>Amount</th>
-                <th>Block Hash</th>
+                <th>Block ID</th>
+                <th>Transactions</th>
+                <th>Authority</th>
             </tr>
         </thead>
-        <tbody id="transactionsBody"></tbody>
+        <tbody></tbody>
     </table>
 
-    <h2>Balances</h2>
-    <canvas id="balanceChart"></canvas>
-
     <script>
-        async function fetchTransactions() {
-            try {
-                const response = await fetch('/blocks');
-                const blocks = await response.json();
-                const tbody = document.getElementById('transactionsBody');
-                tbody.innerHTML = ''; // Pulisci la tabella
-
-                blocks.forEach(block => {
-                    block.transactions.forEach(tx => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${tx.from}</td>
-                            <td>${tx.to}</td>
-                            <td>${tx.amount}</td>
-                            <td>${block.hash || 'N/A'}</td>
-                        `;
-                        tbody.appendChild(row);
-                    });
-                });
-            } catch (error) {
-                console.error('Errore nel caricamento delle transazioni:', error);
-            }
+        async function fetchBlocks() {
+            const response = await fetch('/blocks');
+            const blocks = await response.json();
+            const tbody = document.querySelector('#blocks-table tbody');
+            tbody.innerHTML = '';
+            blocks.forEach((block, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index}</td>
+                    <td>${block.transactions.map(tx => `${tx.sender} → ${tx.receiver}: ${tx.amount}`).join('<br>')}</td>
+                    <td>${block.authority}</td>
+                `;
+                tbody.appendChild(row);
+            });
         }
 
-        async function fetchBalances() {
-            try {
-                const response = await fetch('/balances');
-                const balances = await response.json();
-                const ctx = document.getElementById('balanceChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: Object.keys(balances),
-                        datasets: [{
-                            label: 'Saldi',
-                            data: Object.values(balances),
-                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: { beginAtZero: true }
-                        }
-                    }
-                });
-            } catch (error) {
-                console.error('Errore nel caricamento dei saldi:', error);
-            }
-        }
-
-        // Carica i dati all'avvio
-        fetchTransactions();
-        fetchBalances();
+        fetchBlocks();
+        setInterval(fetchBlocks, 5000);
     </script>
 </body>
 </html>
