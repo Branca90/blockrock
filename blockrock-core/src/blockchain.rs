@@ -1,10 +1,9 @@
 use std::collections::HashMap;
+pub use crate::block::Block;
+pub use crate::transaction::Transaction;
 use ed25519_dalek::VerifyingKey;
-use crate::transaction::Transaction;
-use crate::block::Block;
-use serde::{Serialize, Deserialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug)]
 pub struct Blockchain {
     pub blocks: Vec<Block>,
     pub authority: String,
@@ -21,10 +20,13 @@ impl Blockchain {
             public_keys: HashMap::new(),
         };
         
+        // Inizializza saldi
         blockchain.balances.insert("System".to_string(), 1000.0);
         blockchain.balances.insert("Alice".to_string(), 100.0);
         blockchain.balances.insert("Bob".to_string(), 50.0);
         blockchain.balances.insert("Charlie".to_string(), 30.0);
+        blockchain.balances.insert("Node1".to_string(), 50.0);
+        blockchain.balances.insert("Node2".to_string(), 0.0);
 
         let genesis_transaction = Transaction {
             sender: "System".to_string(),
@@ -38,72 +40,80 @@ impl Blockchain {
         blockchain
     }
 
-    pub fn add_public_key(&mut self, user: &str, public_key: VerifyingKey) {
-        self.public_keys.insert(user.to_string(), public_key);
+    pub fn add_block(&mut self, transactions: Vec<Transaction>, authority: String) -> bool {
+        let previous_hash = self.blocks.last()
+            .map(|block| block.hash.clone())
+            .unwrap_or("0".to_string());
+        
+        if !self.validate_transactions(&transactions) {
+            return false;
+        }
+
+        let new_block = Block::new(
+            self.blocks.len() as u32,
+            transactions.clone(),
+            previous_hash,
+            authority,
+        );
+
+        for transaction in transactions {
+            if transaction.sender != "System" {
+                if let Some(sender_balance) = self.balances.get_mut(&transaction.sender) {
+                    *sender_balance -= transaction.amount;
+                }
+            }
+            if let Some(receiver_balance) = self.balances.get_mut(&transaction.receiver) {
+                *receiver_balance += transaction.amount;
+            } else {
+                self.balances.insert(transaction.receiver.clone(), transaction.amount);
+            }
+        }
+
+        self.blocks.push(new_block);
+        true
     }
 
-    pub fn validate_transaction(&self, transaction: &Transaction) -> bool {
+    fn validate_transactions(&self, transactions: &[Transaction]) -> bool {
+        for transaction in transactions {
+            if !self.validate_transaction(transaction) {
+                println!("Transazione non valida: {} -> {}: {}", transaction.sender, transaction.receiver, transaction.amount);
+                return false;
+            }
+        }
+        true
+    }
+
+    fn validate_transaction(&self, transaction: &Transaction) -> bool {
         if transaction.sender == "System" {
             return true;
         }
 
-        match self.public_keys.get(&transaction.sender) {
-            Some(public_key) => {
-                if !transaction.verify(public_key) {
-                    println!("Firma non valida per: {}", transaction.to_string());
-                    return false;
-                }
-            }
-            None => {
-                println!("Chiave pubblica non trovata per: {}", transaction.sender);
+        if let Some(sender_balance) = self.balances.get(&transaction.sender) {
+            if *sender_balance >= transaction.amount {
+                return true;
+            } else {
+                println!("Saldo insufficiente per {}: richiesto {}, disponibile {}", transaction.sender, transaction.amount, sender_balance);
                 return false;
             }
-        }
-
-        match self.balances.get(&transaction.sender) {
-            Some(balance) => *balance >= transaction.amount,
-            None => {
-                println!("Utente non trovato: {}", transaction.sender);
-                false
-            }
-        }
-    }
-
-    pub fn update_balances(&mut self, transaction: &Transaction) {
-        if transaction.sender != "System" {
-            if let Some(sender_balance) = self.balances.get_mut(&transaction.sender) {
-                *sender_balance -= transaction.amount;
-            }
-        }
-        *self.balances.entry(transaction.receiver.clone()).or_insert(0.0) += transaction.amount;
-    }
-
-    pub fn add_block(&mut self, transactions: Vec<Transaction>, authority: String) -> bool {
-        if authority != self.authority {
-            println!("Autorità non valida: {}", authority);
+        } else {
+            println!("Utente non trovato: {}", transaction.sender);
             return false;
         }
+    }
 
-        for tx in &transactions {
-            if !self.validate_transaction(tx) {
-                println!("Transazione non valida: {}", tx.to_string());
-                return false;
-            }
-        }
+    pub fn get_blocks(&self) -> &Vec<Block> {
+        &self.blocks
+    }
 
-        for tx in &transactions {
-            self.update_balances(tx);
-        }
+    pub fn get_balances(&self) -> Vec<(String, f64)> {
+        let mut balances: Vec<(String, f64)> = self.balances.iter()
+            .map(|(k, v)| (k.clone(), *v))
+            .collect();
+        balances.sort_by(|a, b| a.0.cmp(&b.0));
+        balances
+    }
 
-        let prev_block = self.blocks.last().unwrap();
-        let new_block = Block::new(
-            prev_block.index + 1,
-            transactions,
-            prev_block.hash.clone(),
-            authority,
-        );
-        
-        self.blocks.push(new_block);
-        true
+    pub fn add_public_key(&mut self, name: &str, key: VerifyingKey) {
+        self.public_keys.insert(name.to_string(), key);
     }
 }

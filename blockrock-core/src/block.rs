@@ -1,10 +1,8 @@
-use sha2::{Digest, Sha256};
-use std::time::{SystemTime, UNIX_EPOCH};
-use crate::transaction::Transaction;
 use serde::{Serialize, Deserialize};
-use hex;
+use sha2::{Sha256, Digest};
+use crate::transaction::Transaction;
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Block {
     pub index: u32,
     pub timestamp: u64,
@@ -16,30 +14,38 @@ pub struct Block {
 
 impl Block {
     pub fn new(index: u32, transactions: Vec<Transaction>, previous_hash: String, authority: String) -> Self {
-        let timestamp = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
+        let timestamp = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
             .unwrap()
             .as_secs();
-        let hash = Block::calculate_hash(index, timestamp, &transactions, &previous_hash, &authority);
-        Block {
+        
+        let mut block = Block {
             index,
             timestamp,
             transactions,
             previous_hash,
-            hash,
+            hash: String::new(),
             authority,
-        }
+        };
+        
+        block.hash = block.calculate_hash();
+        block
     }
 
-    fn calculate_hash(index: u32, timestamp: u64, transactions: &[Transaction], previous_hash: &str, authority: &str) -> String {
-        let transactions_str: String = transactions.iter()
-            .map(|tx| tx.to_string())
-            .collect::<Vec<String>>()
-            .join("|");
-        
-        let input = format!("{}{}{}{}{}", index, timestamp, transactions_str, previous_hash, authority);
+    fn calculate_hash(&self) -> String {
         let mut hasher = Sha256::new();
-        hasher.update(input);
+        hasher.update(self.index.to_le_bytes());
+        hasher.update(self.timestamp.to_le_bytes());
+        for tx in &self.transactions {
+            hasher.update(&tx.sender);
+            hasher.update(&tx.receiver);
+            hasher.update(tx.amount.to_le_bytes());
+            if let Some(signature) = &tx.signature {
+                hasher.update(signature.to_bytes());
+            }
+        }
+        hasher.update(&self.previous_hash);
+        hasher.update(&self.authority);
         hex::encode(hasher.finalize())
     }
 }
