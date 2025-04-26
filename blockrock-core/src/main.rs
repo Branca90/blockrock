@@ -6,14 +6,26 @@ use tokio::sync::Mutex;
 use ed25519_dalek::SigningKey;
 use rand::rngs::OsRng;
 use serde_json;
+#[allow(unused_imports)]
+use std::env::var;
+
+use rocket::serde::Serialize;
 
 mod blockchain;
 mod transaction;
 mod block;
+mod tron;
+
 use blockchain::{Blockchain, Block, Transaction};
 
 #[macro_use]
 extern crate rocket;
+
+#[derive(Serialize)]
+#[serde(crate = "rocket::serde")]
+struct BalanceResponse {
+    balance: String,
+}
 
 #[get("/blocks")]
 async fn get_blocks(blockchain: &State<Arc<Mutex<Blockchain>>>) -> Json<Vec<Block>> {
@@ -27,6 +39,16 @@ async fn get_blocks(blockchain: &State<Arc<Mutex<Blockchain>>>) -> Json<Vec<Bloc
 async fn get_balances(blockchain: &State<Arc<Mutex<Blockchain>>>) -> Json<Vec<(String, f64)>> {
     let blockchain = blockchain.lock().await;
     Json(blockchain.get_balances())
+}
+
+#[get("/tron/balance/<address>")]
+async fn tron_balance(address: &str) -> Json<BalanceResponse> {
+    let api_key = std::env::var("TRONGRID_API_KEY")
+        .expect("TRONGRID_API_KEY not set in environment");
+    let balance = tron::get_tron_balance(address, &api_key)
+        .await
+        .unwrap_or("Error fetching balance".to_string());
+    Json(BalanceResponse { balance })
 }
 
 #[get("/")]
@@ -179,7 +201,7 @@ async fn main() -> Result<(), rocket::Error> {
 
     rocket::build()
         .manage(blockchain_state)
-        .mount("/", routes![get_blocks, get_balances, index])
+        .mount("/", routes![get_blocks, get_balances, index, tron_balance])
         .mount("/static", FileServer::from(static_path))
         .configure(
             rocket::Config::figment()
