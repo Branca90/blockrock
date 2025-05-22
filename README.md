@@ -63,7 +63,7 @@ cargo run --release
 
 ## Come Contribuire
 
-Scopri di più, Vedi [README.md](CONTRIBUTING.md).
+Scopri di più, Vedi [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
