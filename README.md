@@ -65,18 +65,7 @@ text
 
 ## Come Contribuire
 
-1. **Fork del repository**
-2. **Crea un branch**:
-git checkout -b mia-funzione
-
-text
-3. **Committa**:
-git commit -m "Descrizione"
-
-text
-4. **Apri una Pull Request**
-
-Scopri di più nel [Wiki - Come Contribuire](https://github.com/Branca90/blockrock/wiki/Come-Contribuire).
+Scopri di più, Vedi [README.md](https://github.com/Branca90/blockrock/wiki/Come-Contribuire).
 
 ---
 
