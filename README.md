@@ -43,29 +43,27 @@ Per approfondire, visita il [Wiki](https://github.com/Branca90/blockrock/wiki).
 git clone https://github.com/Branca90/blockrock.git
 cd blockrock
 
-text
-
 2. **Imposta la Chiave TronGrid**:
-export TRONGRID_API_KEY="your-trongrid-api-key"
-
-text
+```export TRONGRID_API_KEY="your-trongrid-api-key"```
 
 3. **Compila ed Esegui**:
+
+```
 cargo build --release
 cargo run --release
+```
 
-text
-
-4. **Accedi**:  
+4. **Accedi**:
+```
 [http://localhost:8000/static/index.html](http://localhost:8000/static/index.html)
-
+```
 > Dettagli completi nel [Wiki - Guida Installazione](https://github.com/Branca90/blockrock/wiki/Guida-Installazione).
 
 ---
 
 ## Come Contribuire
 
-Scopri di più, Vedi [README.md](https://github.com/Branca90/blockrock/wiki/Come-Contribuire).
+Scopri di più, Vedi [README.md](CONTRIBUTING.md).
 
 ---
 
