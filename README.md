@@ -2,7 +2,6 @@
 
 ![BlockRock Logo]([https://pbs.twimg.com/media/Gm_u5sJXQAE6sXi?format=jpg&name=medium]) <!-- Aggiungi un logo se ce l'hai -->
 
-[![Build Status](https://github.com/Branca90/blockrock/actions/workflows/rust.yml/badge.svg)](https://github.com/Branca90/blockrock/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![Stars](https://img.shields.io/github/stars/Branca90/blockrock)](https://github.com/Branca90/blockrock)
 [![Twitter](https://img.shields.io/twitter/follow/BlockRock572744?style=social)](https://twitter.com/BlockRock572744)
