@@ -64,13 +64,13 @@ cargo run --release
 
 ## Come Contribuire
 
-Scopri di più, Vedi [CONTRIBUTING.md](CONTRIBUTING.md).
+Vedi [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
 ## Licenza
 
-Sotto licenza MIT. Vedi [LICENSE.md](LICENSE.md).
+Vedi [LICENSE.md](LICENSE.md).
 
 ---
 
