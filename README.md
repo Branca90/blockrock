@@ -6,14 +6,18 @@
 [![Stars](https://img.shields.io/github/stars/Branca90/blockrock)](https://github.com/Branca90/blockrock)
 [![Twitter](https://img.shields.io/twitter/follow/BlockRock572744?style=social)](https://twitter.com/BlockRock572744)
 
-🌟 **BlockRock** è una blockchain P2P open-source che trasforma il tuo smartphone in un nodo IoT. Scritta in Rust, gira su Samsung S9, raccoglie dati come GPS ed energia solare, e si integra con Tron per il token BRK. Un progetto folle con il sogno di server solari e Starlink! 🚀
+ **BlockRock** è una blockchain P2P open-source che trasforma il tuo smartphone in un nodo IoT. Scritta in Rust, gira su Samsung S9, raccoglie dati come GPS ed energia solare, e si integra con Tron per il token BRK. 
 
 ---
 
-## Cos'è BlockRock?
+🌟 ## Cos'è BlockRock?
 
-BlockRock è una blockchain leggera e sicura che usa smartphone come nodi IoT per raccogliere dati reali.  
-Si integra con Tron per tokenizzazione a basso costo e punta a un futuro di interoperabilità cross-chain e sostenibilità.
+BlockRock è una piattaforma blockchain leggera, sicura e decentralizzata, sviluppata da zero in Rust.
+Trasforma smartphone di uso comune (es. Samsung S9) in nodi IoT che raccolgono dati reali come GPS ed energia solare.
+Questi nodi formano una rete peer-to-peer (P2P), contribuendo a un ecosistema sostenibile e guidato dalla community.
+
+Integrazione:
+BlockRock si integra con la blockchain Tron (Nile Testnet) tramite l’API REST TronGrid e mira a un’interoperabilità cross-chain futura attraverso ponti come Rubic o Router Nitro.
 
 ### Funzionalità Principali
 
@@ -78,3 +82,4 @@ Sotto licenza MIT. Vedi [LICENSE.md](LICENSE.md).
 - **Telegram:** [t.me/blockrock_main](https://t.me/blockrock_main)
 
 ---
+Un progetto folle con il sogno di server solari e Starlink! 🚀
