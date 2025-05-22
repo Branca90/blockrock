@@ -35,26 +35,26 @@ Hai un suggerimento? Apri una nuova issue o scrivimi su Telegram!
 
 - **Forka il Repository:**  
 Crea la tua copia del progetto.
-- **Crea un Branch:**  
+- **Crea un Branch:**
+```
 git checkout -b feature/nome-tua-feature
-
-text
+```
 - **Scrivi Codice:**  
 Lavora su ciò che ti appassiona (Rust, IoT, Tron, frontend, ecc.).
 - **Testa:**  
 Verifica che le modifiche funzionino (ad esempio, prova su Android come indicato nel README).
 - **Commit:**  
+```
 git commit -m "Aggiunta tua feature o risolto un bug"
-
-text
-
+```
 ---
 
 ### 4. Invia una Pull Request
 
-- **Pusha le modifiche:**  
+- **Pusha le modifiche:**
+```
 git push origin feature/nome-tua-feature
-
+```
 text
 - **Apri una Pull Request** su GitHub.
 - **Descrivi cosa hai cambiato** e perché è utile. La reviewerò e la integrerò il prima possibile!
@@ -78,7 +78,7 @@ Diffondi il progetto, aiuta con la documentazione o gestisci i nostri canali X/T
 
 ## 🌈 Codice di Condotta
 
-Sii gentile, rispettoso e collaborativo.  
+Si gentile, rispettoso e collaborativo.  
 Siamo qui per imparare e costruire qualcosa di straordinario insieme!
 
 ---
