@@ -55,7 +55,6 @@ git commit -m "Aggiunta tua feature o risolto un bug"
 ```
 git push origin feature/nome-tua-feature
 ```
-text
 - **Apri una Pull Request** su GitHub.
 - **Descrivi cosa hai cambiato** e perché è utile. La reviewerò e la integrerò il prima possibile!
 
