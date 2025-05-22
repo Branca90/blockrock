@@ -12,8 +12,6 @@ Che tu sia un developer Rust, un appassionato di IoT, un esperto di Tron o sempl
 
 - **Clona il Repository:**  
 git clone https://github.com/BlockRockAdmin/BlockRock.git
-
-text
 - **Leggi il README:**  
 Dai un’occhiata a [README.md](./README.md) per istruzioni di setup e dettagli sul progetto.
 - **Unisciti alla Community:**  
