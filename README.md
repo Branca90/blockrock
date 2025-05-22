@@ -78,8 +78,11 @@ Sotto licenza MIT. Vedi [LICENSE.md](LICENSE.md).
 
 ## Contatti
 
-- **Twitter:** [@BlockRock572744](https://twitter.com/BlockRock572744)
-- **Telegram:** [t.me/blockrock_main](https://t.me/blockrock_main)
+| Social | LINK |
+| ------ | ------ |
+| **Twitter:** | [@BlockRock572744](https://twitter.com/BlockRock572744) |
+| **Telegram:** | [t.me/blockrock_main](https://t.me/blockrock_main) |
 
 ---
+
 Un progetto folle con il sogno di server solari e Starlink! 🚀
