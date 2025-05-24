@@ -430,6 +430,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "115531babc129696a58c64a4fef0a8bf9e9698629fb97e9e40767d235cfbcd53"
 dependencies = [
  "pkcs8",
+ "serde",
  "signature",
 ]
 
@@ -1708,6 +1709,7 @@ dependencies = [
  "rocket_codegen",
  "rocket_http",
  "serde",
+ "serde_json",
  "state",
  "tempfile",
  "time",
@@ -2171,6 +2173,7 @@ dependencies = [
  "bytes",
  "libc",
  "mio",
+ "parking_lot",
  "pin-project-lite",
  "signal-hook-registry",
  "socket2",
@@ -2900,9 +2903,16 @@ dependencies = [
 name = "zion-core"
 version = "0.1.0"
 dependencies = [
+ "ed25519-dalek",
  "env_logger",
+ "futures",
  "libp2p",
+ "log",
  "prometheus",
+ "rand",
  "rocket",
+ "serde",
+ "serde_json",
+ "tokio",
  "tonic",
 ]
