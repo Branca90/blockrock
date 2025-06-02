@@ -6,6 +6,9 @@
 
  **BlockRock** è una blockchain P2P open-source che trasforma il tuo smartphone in un nodo IoT. Scritta in Rust, gira su Samsung S9, raccoglie dati come GPS ed energia solare, e si integra con Tron per il token BRK. 
 
+ ## Supporta il Progetto
+Se ti piace Zion Core, considera di supportarlo tramite [GitHub Sponsors](https://github.com/sponsors/BlockRockAdmin)!
+
 ---
 
 🌟 ## Cos'è BlockRock?
@@ -58,7 +61,7 @@ cargo run --release
 ```
 [http://localhost:8000/static/index.html](http://localhost:8000/static/index.html)
 ```
-> Dettagli completi nel [Wiki - Guida Installazione](https://github.com/Branca90/blockrock/wiki/Guida-Installazione).
+> Dettagli completi nel [Wiki - Guida Installazione]((https://github.com/BlockRockAdmin/BlockRock/wiki)).
 
 ---
 
