@@ -1,6 +1,0 @@
-Ispirazioni da blockrock-core (24 Maggio 2025):
-- blockchain.rs: Struct Blockchain per stato condiviso (Arc<Mutex>). Idea: ZionState con nodi P2P e metriche prometheus.
-- block.rs: Struct Block per messaggi P2P. Idea: Message con index, timestamp, hash per libp2p.
-- transaction.rs: Transazioni firmate con ed25519-dalek. Idea: P2PMessage con firma per autenticazione nodi.
-- tron.rs: Integrazione API con reqwest. Idea: Endpoint /metrics con prometheus (futuro).
-- main.rs: Endpoint Rocket e libp2p (run_p2p_node). Idea: Endpoint /p2p/status e nodo P2P in p2p.rs.
