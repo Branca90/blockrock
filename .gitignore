@@ -1,4 +1,40 @@
-blockrock-core/target/
-android-ndk-r26b-linux.zip
-target/
-cargo.tolm
+# Ignora tutte le directory di build Rust
+target
+
+# Ignora file di ambiente e log
+.env
+*.log
+nohup.out
+*.tmp
+output-directory
+
+# Ignora file temporanei di editor
+*~
+*.swp
+*.swo
+
+# Ignora file di build Android (se usati)
+android-ndk-*.zip
+
+# (Non ignorare Cargo.toml o Cargo.lock!)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,158 @@
+<!-- static/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BlockRock-TRON Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 p-4">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-4">BlockRock-TRON Dashboard</h1>
+
+    <!-- Blocchi -->
+    <div class="bg-white p-4 rounded shadow mb-4">
+      <h2 class="text-xl font-semibold mb-2">Blocks</h2>
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="border p-2">Block ID</th>
+            <th class="border p-2">Transactions</th>
+            <th class="border p-2">Authority</th>
+          </tr>
+        </thead>
+        <tbody id="blocks-table"></tbody>
+      </table>
+    </div>
+
+    <!-- Saldi -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <!-- BlockRock -->
+      <div class="bg-white p-4 rounded shadow">
+        <h2 class="text-xl font-semibold mb-2">BlockRock Balance</h2>
+        <input id="blockrock-address" type="text" placeholder="Enter BlockRock address e.g., Alice" class="p-2 border rounded w-full mb-2">
+        <button onclick="fetchBlockRockBalance()" class="bg-blue-500 text-white p-2 rounded">Get Balance</button>
+        <p id="blockrock-result" class="mt-2"></p>
+      </div>
+      <!-- TRON -->
+      <div class="bg-white p-4 rounded shadow">
+        <h2 class="text-xl font-semibold mb-2">TRON Balance</h2>
+        <input id="tron-address" type="text" placeholder="Enter TRON address" class="p-2 border rounded w-full mb-2">
+        <button onclick="fetchTronBalance()" class="bg-blue-500 text-white p-2 rounded">Get Balance</button>
+        <p id="tron-result" class="mt-2"></p>
+      </div>
+    </div>
+
+    <!-- Grafico -->
+    <div class="bg-white p-4 rounded shadow">
+      <h2 class="text-xl font-semibold mb-2">Balance Chart</h2>
+      <canvas id="balanceChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Fetch Blocks
+    async function fetchBlocks() {
+      try {
+        const response = await fetch('/blocks');
+        const blocks = await response.json();
+        const tbody = document.querySelector('#blocks-table');
+        tbody.innerHTML = '';
+        blocks.forEach((block, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td class="border p-2">${index}</td>
+            <td class="border p-2">${block.transactions.map(tx =>
+              `${tx.sender} → ${tx.receiver} (${tx.amount})`
+            ).join('<br>')}</td>
+            <td class="border p-2">${block.authority}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error fetching blocks:', error);
+      }
+    }
+
+    // Fetch BlockRock Balance
+    async function fetchBlockRockBalance() {
+      const address = document.getElementById('blockrock-address').value;
+      const resultElement = document.getElementById('blockrock-result');
+      resultElement.innerHTML = 'Loading...';
+      try {
+        const response = await fetch('/balances');
+        const balances = await response.json();
+        const balance = balances.find(b => b[0] === address);
+        const result = balance ? balance[1] : 'Address not found';
+        resultElement.innerHTML = `Balance: ${result} BRK`;
+        updateChart(address, result, 'BlockRock', '#3B82F6');
+      } catch (error) {
+        resultElement.innerHTML = `Error: ${error.message}`;
+      }
+    }
+
+    // Fetch TRON Balance
+    async function fetchTronBalance() {
+      const address = document.getElementById('tron-address').value;
+      const resultElement = document.getElementById('tron-result');
+      resultElement.innerHTML = 'Loading...';
+      try {
+        const response = await fetch('/tronbalance/' + address);
+        const data = await response.json();
+        let balance = data.balance;
+        if (balance === 'Error fetching balance') {
+          resultElement.innerHTML = 'Error fetching balance';
+          return;
+        }
+        // Convert sun to TRX (1 TRX = 1_000_000 sun)
+        balance = (parseInt(balance) / 1_000_000).toFixed(2);
+        resultElement.innerHTML = `Balance: ${balance} TRX`;
+        updateChart(address, balance, 'TRON', '#EF4444');
+      } catch (error) {
+        resultElement.innerHTML = `Error: ${error.message}`;
+      }
+    }
+
+    // Chart.js setup
+    const chartData = {
+      labels: [],
+      datasets: [{
+        label: 'Balances',
+        data: [],
+        backgroundColor: [],
+        borderColor: [],
+        borderWidth: 1
+      }]
+    };
+    const ctx = document.getElementById('balanceChart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: {
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    function updateChart(address, balance, chain, color) {
+      const label = `${address} (${chain})`;
+      const index = chartData.labels.indexOf(label);
+      if (index === -1) {
+        chartData.labels.push(label);
+        chartData.datasets[0].data.push(balance);
+        chartData.datasets[0].backgroundColor.push(color);
+        chartData.datasets[0].borderColor.push(color);
+      } else {
+        chartData.datasets[0].data[index] = balance;
+        chartData.datasets[0].backgroundColor[index] = color;
+        chartData.datasets[0].borderColor[index] = color;
+      }
+      chart.update();
+    }
+
+    // Auto-refresh blocks ogni 10s
+    fetchBlocks();
+    setInterval(fetchBlocks, 10000);
+  </script>
+</body>
+</html>
