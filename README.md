@@ -1,15 +1,34 @@
+![BlockRock Logo](docs/img/Logo.jpg)
+
 ## 📁 Struttura del repository
 
 BlockRock/
-├── blockrock-core/ `# Logica blockchain, PoA, storage`
-├── zion-core/ `# Orchestratore, API REST, P2P, dashboard`
-├── static/ `# Dashboard HTML/JS (Chart.js, Tailwind CSS)`
+├── blockrock-core/         # Logica blockchain, PoA, transazioni, storage (Rust)
+│   └── src/
+│       └── ...
+├── zion-core/              # Orchestratore, API REST, P2P, dashboard (Rust)
+│   └── src/
+│       └── ...
+├── static/                 # Dashboard web (HTML/JS/CSS)
+│   └── index.html
+├── docs/                   # Documentazione e immagini
+│   ├── img/
+│   │   └── Logo.jpg
+│   └── ...
+├── dati_gml/               # Dati geografici compressi (esempio Italia)
+│   ├── provincia1.zip
+│   │   ├── comune1.zip
+│   │   │   ├── file_ple.gml
+│   │   │   └── file_map.gml
+│   │   └── comune2.zip
+│   │       ├── file_ple.gml
+│   │       └── file_map.gml
+│   └── provincia2.zip
+│       └── ...
 ├── .gitignore
 ├── README.md
 ├── LICENSE.md
 └── CONTRIBUTING.md
-
-text
 
 ---
 
