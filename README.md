@@ -3,32 +3,22 @@
 ## 📁 Struttura del repository
 
 BlockRock/
-├── blockrock-core/         # Logica blockchain, PoA, transazioni, storage (Rust)
+├── blockrock-core/
 │   └── src/
 │       └── ...
-├── zion-core/              # Orchestratore, API REST, P2P, dashboard (Rust)
+├── zion-core/
 │   └── src/
 │       └── ...
-├── static/                 # Dashboard web (HTML/JS/CSS)
+├── static/
 │   └── index.html
-├── docs/                   # Documentazione e immagini
+├── docs/
 │   ├── img/
 │   │   └── Logo.jpg
 │   └── ...
-├── dati_gml/               # Dati geografici compressi (esempio Italia)
-│   ├── provincia1.zip
-│   │   ├── comune1.zip
-│   │   │   ├── file_ple.gml
-│   │   │   └── file_map.gml
-│   │   └── comune2.zip
-│   │       ├── file_ple.gml
-│   │       └── file_map.gml
-│   └── provincia2.zip
-│       └── ...
 ├── .gitignore
 ├── README.md
 ├── LICENSE.md
-└── CONTRIBUTING.md
+├── CONTRIBUTING.md
 
 ---
 
