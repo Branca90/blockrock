@@ -34,7 +34,7 @@ BlockRock è un progetto open-source guidato dalla community. Ogni contributo è
 Per domande, suggerimenti o problemi, apri una issue o contattaci tramite la community.
 
 **Preferisci supportare lo sviluppo con una donazione?**  
-[Diventa sponsor su GitHub!](https://github.com/sponsors/BlockRockAdmin/dashboard)
+[Diventa sponsor su GitHub!](https://github.com/sponsors/BlockRockAdmin)
 
 ---
 
