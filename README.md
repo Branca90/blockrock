@@ -1,4 +1,4 @@
-![BlockRock Logo](docs/img/Logo.jpg)
+![BlockRock Logo](docs/Logo.jpg)
 
 ## 📁 Struttura del repository
 
