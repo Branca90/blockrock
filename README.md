@@ -2,6 +2,7 @@
 
 ## 📁 Struttura del repository
 
+```
 BlockRock/
 ├── blockrock-core/
 │   └── src/
@@ -19,6 +20,7 @@ BlockRock/
 ├── README.md
 ├── LICENSE.md
 ├── CONTRIBUTING.md
+```
 
 ---
 

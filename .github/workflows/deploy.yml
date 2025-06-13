@@ -1,0 +1,28 @@
+name: Deploy Nexus
+on:
+  push:
+    branches: [ feature/nexus-integration ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: cd nexus && npm install && npm run build
+      - name: Deploy to Server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: admin1
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "nexus/dist/*"
+          target: "/var/www/html/nexus"
+      - name: Reload Nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: admin1
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: sudo systemctl reload nginx
