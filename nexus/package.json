@@ -1,6 +1,7 @@
 {
   "name": "nexus",
   "version": "0.0.0",
+<<<<<<< HEAD
   "private": true,
   "type": "module",
   "scripts": {
@@ -39,5 +40,35 @@
     "vite": "^6.2.4",
     "vite-plugin-vue-devtools": "^7.7.2",
     "vue-tsc": "^2.2.8"
+=======
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "mqtt": "^5.10.1",
+    "pinia": "^2.2.2",
+    "tronweb": "^6.0.3",
+    "vue": "^3.5.16",
+    "vue-router": "^4.4.5",
+    "vue-toastification": "^2.0.0-rc.5",
+    "vue3-lottie": "^3.3.1",
+    "vuetify": "^3.7.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.4",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.1",
+    "path": "^0.12.7",
+    "readable-stream": "^4.7.0",
+    "stream-browserify": "^3.0.0",
+    "typescript": "^5.6.2",
+    "util": "^0.12.5",
+    "vite": "^6.2.0",
+    "vite-plugin-node-polyfills": "^0.23.0",
+    "vite-plugin-vue-devtools": "^7.7.6"
+>>>>>>> feature/nexus-integration
   }
 }

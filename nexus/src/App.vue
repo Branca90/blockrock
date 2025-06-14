@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
@@ -83,3 +84,13 @@ nav a:first-of-type {
   }
 }
 </style>
+=======
+<template>
+  <router-view />
+</template>
+<script>
+export default {
+  name: 'App',
+};
+</script>
+>>>>>>> feature/nexus-integration
