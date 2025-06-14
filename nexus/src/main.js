@@ -1,3 +1,11 @@
+import * as buffer from 'buffer';
+import { Buffer } from 'buffer';
+if (typeof window !== 'undefined') {
+  window.buffer = buffer;
+  window.Buffer = Buffer;
+  window.global ||= window; // Suggerito da TronWeb
+}
+
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';

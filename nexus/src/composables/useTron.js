@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import TronWeb from 'tronweb';
+import { TronWeb } from 'tronweb';
 import { useAvatarStore } from '@/store';
 
 export function useTron() {
@@ -19,6 +19,7 @@ export function useTron() {
     const tx = await tronWeb.value.transactionBuilder.sendTrx(
       'DESTINATION_ADDRESS', // Sostituisci
       amount * 1000000,
+      tronWeb.value.defaultAddress.base58
     );
     const signedTx = await tronWeb.value.trx.sign(tx);
     await tronWeb.value.trx.sendRawTransaction(signedTx);
