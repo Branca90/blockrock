@@ -4,15 +4,17 @@
 
 ```
 BlockRock/
-├── blockrock-core/
+├── blockrock-core/      # Motore blockchain P2P in Rust
 │   └── src/
-│       └── ...
-├── zion-core/
+├── zion-core/           # Orchestratore, API REST, bridge Tron, P2P
 │   └── src/
-│       └── ...
-├── static/
+├── nexus/               # Dashboard Vue 3 + Vuetify + Chart.js + MQTT
+│   └── src/
+├── lifeforge/           # (opzionale) App Android gamificata, Kotlin
+│   └── src/
+├── static/              # Frontend legacy o asset statici condivisi
 │   └── index.html
-├── docs/
+├── docs/                # Documentazione, immagini, wiki offline
 │   ├── img/
 │   │   └── Logo.jpg
 │   └── ...
