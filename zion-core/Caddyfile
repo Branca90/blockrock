@@ -1,0 +1,10 @@
+api.blockrock.dev {
+    reverse_proxy zion_core:8000
+}
+grpc.blockrock.dev {
+    reverse_proxy zion_core:50051 {
+        transport http {
+            versions h2c
+        }
+    }
+}

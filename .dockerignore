@@ -1,0 +1,38 @@
+# File e directory di documentazione
+docs
+*.md
+*.txt
+
+# Output di build e cache
+target
+dist
+node_modules
+.vite
+output-directory
+
+# File temporanei e di log
+*.log
+nohup.out
+*.tmp
+
+# Config e dati sensibili
+.env
+*.env
+*.key
+*.pem
+
+# File di sistema/IDE
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Altri moduli non necessari al build di Zion Core
+iot
+lifeforge
+ml
+nexus
+Logo.jpg
+CONTRIBUTING.md
+LICENSE.md
+

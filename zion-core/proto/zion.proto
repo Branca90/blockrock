@@ -1,0 +1,17 @@
+syntax = "proto3";
+package blockrock;
+
+service TransactionService {
+    rpc GetTransaction (TransactionRequest) returns (TransactionResponse);
+}
+
+message TransactionRequest {
+    string id = 1;
+}
+
+message TransactionResponse {
+    string id = 1;
+    string sender = 2;
+    string recipient = 3;
+    float amount = 4;
+}

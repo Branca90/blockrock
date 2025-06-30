@@ -1,0 +1,11 @@
+[workspace]
+members = [
+    "zion-core",
+    "blockrock-core"
+]
+
+resolver = "2"  # Per edition 2021
+
+[workspace.dependencies]
+blockrock-core = { path = "./blockrock-core" }
+

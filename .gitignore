@@ -1,5 +1,6 @@
 # Ignora tutte le directory di build Rust
-target
+/target/
+/zion-core/Cargo.lock
 
 # Ignora file di ambiente e log
 .env

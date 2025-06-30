@@ -2,8 +2,9 @@ use std::collections::HashMap;
 pub use crate::block::Block;
 pub use crate::transaction::Transaction;
 use ed25519_dalek::VerifyingKey;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Blockchain {
     pub blocks: Vec<Block>,
     pub authority: String,
@@ -19,7 +20,6 @@ impl Blockchain {
             balances: HashMap::new(),
             public_keys: HashMap::new(),
         };
-        // Inizializza saldi di esempio
         blockchain.balances.insert("System".to_string(), 1000.0);
         blockchain.balances.insert("Alice".to_string(), 100.0);
         blockchain.balances.insert("Bob".to_string(), 50.0);
@@ -27,7 +27,6 @@ impl Blockchain {
         blockchain.balances.insert("Node1".to_string(), 50.0);
         blockchain.balances.insert("Node2".to_string(), 0.0);
 
-        // Crea blocco genesis
         let genesis_transaction = Transaction {
             sender: "System".to_string(),
             receiver: "Genesis".to_string(),
@@ -46,14 +45,12 @@ impl Blockchain {
 
     pub fn add_block(&mut self, transactions: Vec<Transaction>, authority: String) -> bool {
         let previous_hash = self.blocks.last().map(|block| block.hash.clone()).unwrap_or("0".to_string());
-        // Validazione semplice (puoi espandere)
         let new_block = Block::new(
             self.blocks.len() as u32,
             transactions.clone(),
             previous_hash,
             authority,
         );
-        // Aggiorna saldi
         for transaction in &transactions {
             if transaction.sender != "System" {
                 if let Some(sender_balance) = self.balances.get_mut(&transaction.sender) {

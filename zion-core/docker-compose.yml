@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  zion_core:
+    build:
+      context: ../
+      dockerfile: zion-core/Dockerfile
+    ports:
+      - "8000:8000"
+      - "50051:50051"
+    environment:
+      - RUST_LOG=info
+      - API_PORT=8000
+      - GRPC_PORT=50051
+      - TRONGRID_API_KEY=${TRONGRID_API_KEY}
+      - STATIC_PATH=/static
+    volumes:
+      - data:/data
+      - ./static:/static:ro
+    depends_on:
+      - caddy
+  caddy:
+    image: caddy:2.8
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+volumes:
+  data:
+  caddy_data:
+  caddy_config:
